@@ -39,7 +39,7 @@ class MnemonicWords
   end
 
   def decode(s)
-    indices = s.downcase.split(/\s+/).map { |word| @word_list.index(word) }
+    indices = s.downcase.split(/\s+/).reject(&:empty?).map { |word| @word_list.index(word) }
     return nil if indices.any? &:nil?
     y = indices.inject(0) { |memo,x| memo * @base + x }
     result = ((y * @divisor) % @max_result) + @range.begin
